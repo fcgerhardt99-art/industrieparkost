@@ -6,15 +6,9 @@
   <title>Industriepark Ost</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -23,10 +17,7 @@
       overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     .navbar {
       position: fixed;
@@ -36,42 +27,52 @@
       z-index: 50;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 42px 42px 28px;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 55%, transparent 100%);
+      align-items: flex-start;
+      padding: 46px 44px 44px;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,0.98) 45%,
+        rgba(0,0,0,0.75) 75%,
+        transparent 100%
+      );
+      font-size: 14px;
       font-weight: 300;
-      font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 4px;
+      min-height: 135px;
     }
 
     .nav-left,
     .nav-right {
       display: flex;
-      gap: 28px;
+      gap: 34px;
       align-items: center;
     }
 
     .navbar a {
       display: inline-block;
-      transform: scaleY(1.55);
-      opacity: 0.92;
-      position: relative;
+      transform: scaleY(1.65);
+      opacity: 0.95;
+      transition: opacity 0.2s ease;
     }
 
     .navbar a:hover {
-      animation: glitch 0.14s infinite;
+      opacity: 1;
+      animation: hardGlitch 0.09s infinite;
       text-shadow:
-        2px 0 rgba(255,255,255,0.8),
-        -2px 0 rgba(120,120,120,0.8);
+        3px 0 #fff,
+        -3px 0 #777,
+        0 2px #222;
     }
 
-    @keyframes glitch {
-      0% { transform: translate(0,0) scaleY(1.55); }
-      25% { transform: translate(1px,-1px) scaleY(1.55); }
-      50% { transform: translate(-2px,1px) scaleY(1.55); }
-      75% { transform: translate(2px,0) scaleY(1.55); }
-      100% { transform: translate(0,0) scaleY(1.55); }
+    @keyframes hardGlitch {
+      0% { transform: translate(0,0) skewX(0deg) scaleY(1.65); }
+      20% { transform: translate(-3px,1px) skewX(8deg) scaleY(1.75); }
+      40% { transform: translate(3px,-1px) skewX(-8deg) scaleY(1.55); }
+      60% { transform: translate(-1px,2px) skewX(12deg) scaleY(1.8); }
+      80% { transform: translate(2px,-2px) skewX(-10deg) scaleY(1.5); }
+      100% { transform: translate(0,0) skewX(0deg) scaleY(1.65); }
     }
 
     .hero {
@@ -98,36 +99,28 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.10);
+      background: rgba(0,0,0,0.08);
       z-index: 2;
       pointer-events: none;
     }
 
     .trail {
       position: fixed;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.18);
-      filter: blur(7px);
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+      filter: blur(8px);
       pointer-events: none;
       z-index: 100;
       transform: translate(-50%, -50%);
-      animation: fadeTrail 0.65s linear forwards;
+      animation: trailFade 0.75s linear forwards;
       mix-blend-mode: difference;
     }
 
-    @keyframes fadeTrail {
-      from {
-        opacity: 0.9;
-        width: 22px;
-        height: 22px;
-      }
-      to {
-        opacity: 0;
-        width: 80px;
-        height: 80px;
-      }
+    @keyframes trailFade {
+      from { opacity: 0.95; width: 20px; height: 20px; }
+      to { opacity: 0; width: 110px; height: 34px; }
     }
 
     section {
@@ -146,10 +139,7 @@
       transform-origin: left center;
     }
 
-    .dates {
-      display: grid;
-      gap: 18px;
-    }
+    .dates { display: grid; gap: 18px; }
 
     .date {
       display: flex;
@@ -160,13 +150,6 @@
       font-size: 18px;
       font-weight: 300;
       letter-spacing: 1px;
-    }
-
-    .embed {
-      margin-top: 28px;
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
     }
 
     .video-wrapper {
@@ -186,6 +169,13 @@
       height: 100%;
     }
 
+    .embed {
+      margin-top: 28px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -202,7 +192,7 @@
 
     .gallery-grid img:hover {
       filter: grayscale(0%);
-      transform: scale(1.02);
+      transform: scale(1.025);
     }
 
     .about p,
@@ -227,14 +217,19 @@
 
     @media (max-width: 700px) {
       .navbar {
-        position: fixed;
-        padding: 24px 18px 18px;
+        min-height: 155px;
+        padding: 28px 18px 38px;
         flex-direction: column;
-        gap: 16px;
+        gap: 18px;
         align-items: flex-start;
         font-size: 11px;
-        letter-spacing: 2.5px;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 70%, transparent 100%);
+        letter-spacing: 2.3px;
+        background: linear-gradient(
+          to bottom,
+          rgba(0,0,0,1) 0%,
+          rgba(0,0,0,0.98) 70%,
+          transparent 100%
+        );
       }
 
       .nav-left,
@@ -242,7 +237,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        gap: 10px;
+        gap: 8px;
       }
 
       .navbar a {
@@ -251,12 +246,9 @@
 
       .hero {
         height: 72vh;
-        margin-top: 0;
       }
 
       .hero-video {
-        width: 100%;
-        height: 100%;
         object-fit: contain;
         background: #000;
       }
@@ -307,7 +299,6 @@
 
   <section id="live">
     <h2>Live Dates</h2>
-
     <div class="dates">
       <div class="date">
         <span>Neue Dates bald</span>
@@ -343,14 +334,13 @@
 
   <section id="galerie">
     <h2>Galerie</h2>
-
     <div class="gallery-grid">
-      <img src="bild1.jpg" alt="Industriepark Ost Galerie Bild 1">
-      <img src="bild2.jpg" alt="Industriepark Ost Galerie Bild 2">
-      <img src="bild3.jpg" alt="Industriepark Ost Galerie Bild 3">
-      <img src="bild4.jpg" alt="Industriepark Ost Galerie Bild 4">
-      <img src="bild5.jpg" alt="Industriepark Ost Galerie Bild 5">
-      <img src="bild6.jpg" alt="Industriepark Ost Galerie Bild 6">
+      <img src="bild1.jpg" alt="Galerie Bild 1">
+      <img src="bild2.jpg" alt="Galerie Bild 2">
+      <img src="bild3.jpg" alt="Galerie Bild 3">
+      <img src="bild4.jpg" alt="Galerie Bild 4">
+      <img src="bild5.jpg" alt="Galerie Bild 5">
+      <img src="bild6.jpg" alt="Galerie Bild 6">
     </div>
   </section>
 
@@ -375,16 +365,20 @@
   </footer>
 
   <script>
+    let lastTrail = 0;
+
     document.addEventListener("mousemove", function(e) {
+      const now = Date.now();
+      if (now - lastTrail < 28) return;
+      lastTrail = now;
+
       const trail = document.createElement("div");
       trail.className = "trail";
       trail.style.left = e.clientX + "px";
       trail.style.top = e.clientY + "px";
       document.body.appendChild(trail);
 
-      setTimeout(() => {
-        trail.remove();
-      }, 650);
+      setTimeout(() => trail.remove(), 750);
     });
   </script>
 
