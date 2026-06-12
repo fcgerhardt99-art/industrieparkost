@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Industriepark Ost</title>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -20,10 +22,13 @@
     a { color: inherit; text-decoration: none; }
 
     .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 110px;
       background: #000;
-      z-index: 50;
+      z-index: 999;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -52,6 +57,11 @@
       text-shadow: 3px 0 #fff, -3px 0 #777, 0 2px #222;
     }
 
+    .nav-right i {
+      font-size: 22px;
+      transform: scaleY(0.75);
+    }
+
     @keyframes hardGlitch {
       0% { transform: translate(0,0) skewX(0deg) scaleY(1.65); }
       20% { transform: translate(-3px,1px) skewX(8deg) scaleY(1.75); }
@@ -63,6 +73,7 @@
 
     .hero {
       position: relative;
+      margin-top: 110px;
       height: calc(100vh - 110px);
       width: 100%;
       overflow: hidden;
@@ -82,6 +93,7 @@
       padding: 90px 40px;
       max-width: 1000px;
       margin: 0 auto;
+      scroll-margin-top: 130px;
     }
 
     h2 {
@@ -170,16 +182,13 @@
       font-weight: 300;
     }
 
-    .mobile-socials {
-      display: none;
-    }
-
     @media (max-width: 700px) {
       .navbar {
-        height: 92px;
-        padding: 0 18px;
-        display: flex;
-        align-items: center;
+        height: 118px;
+        padding: 22px 18px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
         font-size: 11px;
         letter-spacing: 2.2px;
       }
@@ -192,15 +201,24 @@
       }
 
       .nav-right {
-        display: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 28px;
       }
 
       .navbar a {
         transform: scaleY(1.35);
       }
 
+      .nav-right i {
+        font-size: 21px;
+        transform: scaleY(0.8);
+      }
+
       .hero {
-        height: calc(100vh - 92px);
+        margin-top: 118px;
+        height: calc(100vh - 118px);
       }
 
       .hero-video {
@@ -210,6 +228,7 @@
 
       section {
         padding: 70px 22px;
+        scroll-margin-top: 140px;
       }
 
       h2 {
@@ -224,14 +243,6 @@
 
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
-      }
-
-      .mobile-socials {
-        display: flex;
-        justify-content: center;
-        gap: 22px;
-        margin-top: 28px;
-        flex-wrap: wrap;
       }
     }
   </style>
@@ -248,9 +259,15 @@
     </div>
 
     <div class="nav-right">
-      <a href="https://www.instagram.com/industrieparkost/" target="_blank">Instagram</a>
-      <a href="https://open.spotify.com/artist/103iVpHufJ5xn1CC4t3Qtl?si=JvsmMMMAR0mzXY_K-Yb2ig" target="_blank">Spotify</a>
-      <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8" target="_blank">YouTube</a>
+      <a href="https://www.instagram.com/industrieparkost/" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://open.spotify.com/artist/103iVpHufJ5xn1CC4t3Qtl?si=JvsmMMMAR0mzXY_K-Yb2ig" target="_blank" aria-label="Spotify">
+        <i class="fab fa-spotify"></i>
+      </a>
+      <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8" target="_blank" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
     </div>
   </nav>
 
@@ -325,12 +342,6 @@
 
   <footer>
     © 2026 Industriepark Ost
-
-    <div class="mobile-socials">
-      <a href="https://www.instagram.com/industrieparkost/" target="_blank">Instagram</a>
-      <a href="https://open.spotify.com/artist/103iVpHufJ5xn1CC4t3Qtl" target="_blank">Spotify</a>
-      <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8" target="_blank">YouTube</a>
-    </div>
   </footer>
 
 </body>
