@@ -17,9 +17,18 @@
       background: #050505;
       color: #f2f2f2;
       overflow-x: hidden;
+      font-weight: 300;
     }
 
     a { color: inherit; text-decoration: none; }
+
+    .stretched {
+      display: inline-block;
+      transform: scaleY(1.28);
+      transform-origin: left center;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+    }
 
     .navbar {
       position: fixed;
@@ -91,7 +100,7 @@
 
     section {
       padding: 90px 40px;
-      max-width: 1000px;
+      max-width: 1050px;
       margin: 0 auto;
       scroll-margin-top: 130px;
     }
@@ -99,32 +108,59 @@
     h2 {
       font-size: 34px;
       font-weight: 200;
-      margin-bottom: 34px;
+      margin-bottom: 42px;
       text-transform: uppercase;
       letter-spacing: 6px;
       transform: scaleY(1.35);
       transform-origin: left center;
     }
 
-    .dates { display: grid; gap: 18px; }
+    .dates {
+      display: grid;
+      gap: 20px;
+    }
 
     .date {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
       border-bottom: 1px solid #333;
-      padding-bottom: 18px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .date a {
+      display: grid;
+      grid-template-columns: 1.4fr 1.4fr 0.8fr;
+      gap: 24px;
+      width: 100%;
+      padding-bottom: 20px;
       font-size: 18px;
       font-weight: 300;
-      letter-spacing: 1px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .date span {
+      display: inline-block;
+      transform: scaleY(1.25);
+      transform-origin: left center;
+    }
+
+    .date:hover {
+      transform: translateX(6px);
     }
 
     .date.past {
-      opacity: 0.3;
+      opacity: 0.28;
     }
 
     .date.upcoming {
       opacity: 1;
+    }
+
+    .date-location {
+      color: #cfcfcf;
+    }
+
+    .date-day {
+      text-align: right;
     }
 
     .video-wrapper {
@@ -173,10 +209,12 @@
     .about p,
     #kontakt p {
       font-size: 20px;
-      line-height: 1.6;
+      line-height: 1.65;
       max-width: 760px;
       font-weight: 300;
-      letter-spacing: 0.5px;
+      letter-spacing: 1.2px;
+      transform: scaleY(1.18);
+      transform-origin: left center;
     }
 
     footer {
@@ -188,6 +226,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 300;
+      transform: scaleY(1.2);
     }
 
     @media (max-width: 700px) {
@@ -244,13 +283,23 @@
         letter-spacing: 4px;
       }
 
-      .date {
-        flex-direction: column;
+      .date a {
+        grid-template-columns: 1fr;
+        gap: 10px;
         font-size: 16px;
+      }
+
+      .date-day {
+        text-align: left;
       }
 
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .about p,
+      #kontakt p {
+        font-size: 18px;
       }
     }
   </style>
@@ -289,20 +338,31 @@
     <h2>Live Dates</h2>
 
     <div class="dates">
+
       <div class="date" data-date="2026-05-16">
-        <span>EU Stone Festival</span>
-        <span>16.05.2026</span>
+        <a href="#">
+          <span>EU Stone Festival</span>
+          <span class="date-location">Eschholzpark Freiburg</span>
+          <span class="date-day">16.05.2026</span>
+        </a>
       </div>
 
       <div class="date" data-date="2026-05-22">
-        <span>Release Party — Kunstverein Engesserstraße 6</span>
-        <span>22.05.2026</span>
+        <a href="#">
+          <span>Release Party</span>
+          <span class="date-location">Kunstverein Engesserstraße Freiburg</span>
+          <span class="date-day">22.05.2026</span>
+        </a>
       </div>
 
       <div class="date" data-date="2026-07-11">
-        <span>Vauban Sommerfest</span>
-        <span>11.07.2026</span>
+        <a href="#">
+          <span>Vauban Sommerfest</span>
+          <span class="date-location">Freiburg</span>
+          <span class="date-day">11.07.2026</span>
+        </a>
       </div>
+
     </div>
   </section>
 
