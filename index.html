@@ -30,31 +30,30 @@
     .navbar {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 26px 42px;
+      padding: 28px 42px;
       background: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 300;
       font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
     }
 
     .nav-left,
     .nav-right {
       display: flex;
-      gap: 26px;
+      gap: 28px;
       align-items: center;
     }
 
     .navbar a {
       display: inline-block;
       transform: scaleY(1.55);
-      transform-origin: center;
       opacity: 0.9;
     }
 
@@ -70,33 +69,25 @@
       background: #000;
     }
 
-    .hero video {
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.18);
-      pointer-events: none;
+      background: rgba(0,0,0,0.12);
       z-index: 2;
-    }
-
-    .scroll {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) scaleY(1.5);
-      z-index: 5;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      opacity: 0.75;
-      font-weight: 300;
+      pointer-events: none;
     }
 
     section {
@@ -106,7 +97,6 @@
     }
 
     h2 {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 34px;
       font-weight: 200;
       margin-bottom: 34px;
@@ -220,29 +210,15 @@
     <div class="nav-right">
       <a href="https://www.instagram.com/industrieparkost/" target="_blank">Instagram</a>
       <a href="https://open.spotify.com/artist/103iVpHufJ5xn1CC4t3Qtl?si=JvsmMMMAR0mzXY_K-Yb2ig" target="_blank">Spotify</a>
-      <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8&list=RDHsxW8jKIYv8&start_radio=1" target="_blank">YouTube</a>
+      <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8" target="_blank">YouTube</a>
     </div>
   </nav>
 
   <header class="hero">
-
-  <video
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    controls
-    style="
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    "
-  >
-    <source src="InduVideo.MOV">
-  </video>
-
-</header>
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="InduVideo.mp4" type="video/mp4">
+    </video>
+  </header>
 
   <section id="live">
     <h2>Live Dates</h2>
