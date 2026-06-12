@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industry Park Post</title>
+<style>
+  :root{
+    --bg: #0e0e10;
+    --panel: #16161a;
+    --concrete: #3a3a3d;
+    --rust: #c2622d;
+    --sodium: #e8a33d;
+    --ink: #e4e0d8;
+    --ink-dim: #9a958c;
+    --line: #2a2a2e;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IPP Body', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+  }
+
+  .display{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transform: scaleY(1.35);
+    transform-origin: bottom left;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background: rgba(14,14,16,0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .logo{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+  }
+  nav .logo span{ color: var(--rust); }
+  nav ul{
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+  }
+  nav a{
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav a:hover, nav a:focus-visible{ color: var(--sodium); }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(14,14,16,0) 0%, rgba(14,14,16,1) 100%),
+      repeating-linear-gradient(135deg, rgba(194,98,45,0.05) 0px, rgba(194,98,45,0.05) 2px, transparent 2px, transparent 40px);
+    pointer-events:none;
+  }
+  .hero-tag{
+    position: relative;
+    z-index: 1;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--sodium);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.1s;
+  }
+  .hero h1{
+    position: relative;
+    z-index: 1;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(3.5rem, 14vw, 9rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    transform: scaleY(1.4);
+    transform-origin: bottom left;
+  }
+  .hero h1 .reveal{
+    display: inline-block;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.3s;
+  }
+  .hero h1 .line2{
+    color: var(--bg);
+    -webkit-text-stroke: 1.5px var(--ink);
+  }
+  .hero p.lede{
+    position: relative;
+    z-index: 1;
+    max-width: 36ch;
+    margin-top: 1.5rem;
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+  .hero-meta{
+    position: relative;
+    z-index: 1;
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+  .hero-meta div{
+    border-left: 2px solid var(--rust);
+    padding-left: 0.8rem;
+  }
+  .hero-meta .label{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  .hero-meta .value{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(18px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* ---------- SECTOR HEADERS ---------- */
+  .sector-label{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--rust);
+    margin-bottom: 1.2rem;
+  }
+  .sector-label::before{
+    content:"";
+    display:block;
+    width: 28px;
+    height: 2px;
+    background: var(--rust);
+  }
+  .section{
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+  }
+  .section h2{
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .about-grid p{
+    color: var(--ink-dim);
+    margin-bottom: 1rem;
+    max-width: 50ch;
+  }
+  .about-stats{
+    display: grid;
+    gap: 1.2rem;
+  }
+  .about-stats .stat{
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 1.2rem 1.4rem;
+  }
+  .about-stats .stat .display{
+    font-size: 0.7rem;
+    color: var(--sodium);
+    letter-spacing: 0.25em;
+    margin-bottom: 0.4rem;
+  }
+  .about-stats .stat p{
+    color: var(--ink);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* ---------- MUSIC ---------- */
+  .music-list{
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .music-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--panel);
+    padding: 1.3rem 1.6rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s, padding-left 0.2s;
+  }
+  .music-row:hover, .music-row:focus-visible{
+    background: #1c1c20;
+    padding-left: 2rem;
+  }
+  .music-row .title{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    font-size: 1.05rem;
+  }
+  .music-row .meta{
+    color: var(--ink-dim);
+    font-size: 0.8rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .music-row .arrow{
+    color: var(--rust);
+    margin-left: 1rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  /* ---------- TOUR ---------- */
+  .tour-list{ display: grid; gap: 0; }
+  .tour-row{
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .tour-row:first-child{ border-top: 1px solid var(--line); }
+  .tour-date{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--sodium);
+    letter-spacing: 0.05em;
+  }
+  .tour-date .day{ font-size: 1.8rem; display:block; line-height: 1; }
+  .tour-date .month{ font-size: 0.75rem; letter-spacing: 0.25em; color: var(--ink-dim); }
+  .tour-info .venue{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+  .tour-info .city{ color: var(--ink-dim); font-size: 0.9rem; }
+  .tour-status{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--rust);
+    color: var(--rust);
+    white-space: nowrap;
+  }
+  .tour-status.sold{
+    border-color: var(--concrete);
+    color: var(--ink-dim);
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+  .gallery-grid .ph{
+    aspect-ratio: 4/5;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-dim);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+  }
+  .gallery-grid .ph:nth-child(2){ grid-row: span 2; aspect-ratio: auto; }
+  .gallery-grid .ph:nth-child(5){ grid-column: span 2; aspect-ratio: auto; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .contact-info p{ color: var(--ink-dim); margin-bottom: 1rem; max-width: 40ch; }
+  .contact-info .email{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.3rem;
+    color: var(--sodium);
+    letter-spacing: 0.05em;
+  }
+  form{ display: grid; gap: 1rem; }
+  label{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  input, textarea{
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 0.8rem 1rem;
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+  }
+  input:focus, textarea:focus{
+    outline: 2px solid var(--sodium);
+    outline-offset: 1px;
+  }
+  textarea{ resize: vertical; min-height: 120px; }
+  button{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    background: var(--rust);
+    color: var(--bg);
+    border: none;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  button:hover, button:focus-visible{ background: var(--sodium); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 768px){
+    nav ul{
+      position: fixed;
+      top: 0; right: -100%;
+      height: 100vh;
+      width: 70%;
+      background: var(--bg);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      transition: right 0.3s ease;
+      border-left: 1px solid var(--line);
+    }
+    nav ul.open{ right: 0; }
+    .nav-toggle{
+      display: block;
+      background: none;
+      border: none;
+      color: var(--ink);
+      font-size: 1.5rem;
+      cursor: pointer;
+      letter-spacing: 0;
+      padding: 0;
+    }
+    .about-grid, .contact-grid{ grid-template-columns: 1fr; gap: 2rem; }
+    .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid .ph:nth-child(5){ grid-column: span 1; }
+    .tour-row{ grid-template-columns: 70px 1fr; }
+    .tour-status{ grid-column: span 2; justify-self: start; margin-top: 0.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-tag, .hero h1 .reveal, .hero p.lede, .hero-meta{ animation: none; opacity: 1; }
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">INDUSTRY <span>PARK</span> POST</div>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#tour">Tour</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">SECTOR 00 — ARRIVAL</div>
+  <h1><span class="reveal">INDUSTRY<br><span class="line2">PARK POST</span></span></h1>
+  <p class="lede">Four-piece. Volume as architecture. New record "Concrete Season" out now — recorded live to tape in a decommissioned freight depot.</p>
+  <div class="hero-meta">
+    <div>
+      <div class="label">Based</div>
+      <div class="value">Freiburg, DE</div>
+    </div>
+    <div>
+      <div class="label">Latest Release</div>
+      <div class="value">Concrete Season</div>
+    </div>
+    <div>
+      <div class="label">Status</div>
+      <div class="value">On Tour</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="sector-label">SECTOR 01 — DOSSIER</div>
+  <h2 class="display">About</h2>
+  <div class="about-grid">
+    <div>
+      <p>Industry Park Post formed in the gap between two demolitions — the kind of in-between space where nobody's watching and the acoustics are accidental but perfect. The sound sits somewhere between post-punk's nervous energy and the slow, structural weight of doom: tight rhythms under heavy air.</p>
+      <p>Every release is recorded on location — warehouses, car parks, the shells of buildings waiting to become something else. The room is part of the band.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="display">Formed</div>
+        <p>2021, Freiburg</p>
+      </div>
+      <div class="stat">
+        <div class="display">Lineup</div>
+        <p>Vocals / Guitar, Bass, Drums, Synth &amp; Tape</p>
+      </div>
+      <div class="stat">
+        <div class="display">Sound</div>
+        <p>Post-punk, industrial, slowcore</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="music">
+  <div class="sector-label">SECTOR 02 — TRANSMISSIONS</div>
+  <h2 class="display">Music</h2>
+  <div class="music-list">
+    <a class="music-row" href="#" target="_blank" rel="noopener">
+      <span class="title">Concrete Season — LP</span>
+      <span class="meta">2026 · Listen on Spotify <span class="arrow">→</span></span>
+    </a>
+    <a class="music-row" href="#" target="_blank" rel="noopener">
+      <span class="title">Concrete Season — LP</span>
+      <span class="meta">2026 · Listen on Bandcamp <span class="arrow">→</span></span>
+    </a>
+    <a class="music-row" href="#" target="_blank" rel="noopener">
+      <span class="title">Cold Storage — EP</span>
+      <span class="meta">2024 · Listen on Apple Music <span class="arrow">→</span></span>
+    </a>
+    <a class="music-row" href="#" target="_blank" rel="noopener">
+      <span class="title">Site Visit — Single</span>
+      <span class="meta">2023 · Watch on YouTube <span class="arrow">→</span></span>
+    </a>
+  </div>
+</section>
+
+<section class="section" id="tour">
+  <div class="sector-label">SECTOR 03 — ROUTE</div>
+  <h2 class="display">Tour Dates</h2>
+  <div class="tour-list">
+    <div class="tour-row">
+      <div class="tour-date"><span class="day">04</span><span class="month">Jul</span></div>
+      <div class="tour-info">
+        <div class="venue">Schwarzwald Hall</div>
+        <div class="city">Freiburg, Germany</div>
+      </div>
+      <div class="tour-status">Tickets</div>
+    </div>
+    <div class="tour-row">
+      <div class="tour-date"><span class="day">12</span><span class="month">Jul</span></div>
+      <div class="tour-info">
+        <div class="venue">Werk23</div>
+        <div class="city">Berlin, Germany</div>
+      </div>
+      <div class="tour-status">Tickets</div>
+    </div>
+    <div class="tour-row">
+      <div class="tour-date"><span class="day">19</span><span class="month">Jul</span></div>
+      <div class="tour-info">
+        <div class="venue">The Foundry</div>
+        <div class="city">Zurich, Switzerland</div>
+      </div>
+      <div class="tour-status sold">Sold Out</div>
+    </div>
+    <div class="tour-row">
+      <div class="tour-date"><span class="day">02</span><span class="month">Aug</span></div>
+      <div class="tour-info">
+        <div class="venue">Depot Hall 4</div>
+        <div class="city">Lyon, France</div>
+      </div>
+      <div class="tour-status">Tickets</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="sector-label">SECTOR 04 — ARCHIVE</div>
+  <h2 class="display">Gallery</h2>
+  <div class="gallery-grid">
+    <div class="ph">Photo 1 — Live shot</div>
+    <div class="ph">Photo 2 — Band portrait</div>
+    <div class="ph">Photo 3 — Venue / crowd</div>
+    <div class="ph">Photo 4 — Instrument detail</div>
+    <div class="ph">Photo 5 — Wide stage shot</div>
+    <div class="ph">Photo 6 — Backstage</div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="sector-label">SECTOR 05 — CONTACT</div>
+  <h2 class="display">Get In Touch</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Booking, press, and general inquiries — drop us a line and someone will get back to you.</p>
+      <p class="email">booking@industryparkpost.com</p>
+      <p>Follow along for tour announcements and release updates.</p>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Thanks — message noted. (Connect this form to a service like Formspree to make it live.)');">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  Industry Park Post — © 2026 — All Rights Reserved
+</footer>
+
+</body>
+</html>
