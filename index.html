@@ -119,6 +119,14 @@
       letter-spacing: 1px;
     }
 
+    .date.past {
+      opacity: 0.3;
+    }
+
+    .date.upcoming {
+      opacity: 1;
+    }
+
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
@@ -279,10 +287,21 @@
 
   <section id="live">
     <h2>Live Dates</h2>
+
     <div class="dates">
-      <div class="date">
-        <span>Neue Dates bald</span>
-        <span>2026</span>
+      <div class="date" data-date="2026-05-16">
+        <span>EU Stone Festival</span>
+        <span>16.05.2026</span>
+      </div>
+
+      <div class="date" data-date="2026-05-22">
+        <span>Release Party — Kunstverein Engesserstraße 6</span>
+        <span>22.05.2026</span>
+      </div>
+
+      <div class="date" data-date="2026-07-11">
+        <span>Vauban Sommerfest</span>
+        <span>11.07.2026</span>
       </div>
     </div>
   </section>
@@ -314,6 +333,7 @@
 
   <section id="galerie">
     <h2>Galerie</h2>
+
     <div class="gallery-grid">
       <img src="bild1.jpg" alt="Galerie Bild 1">
       <img src="bild2.jpg" alt="Galerie Bild 2">
@@ -343,6 +363,24 @@
   <footer>
     © 2026 Industriepark Ost
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      document.querySelectorAll(".date").forEach(item => {
+        const eventDate = new Date(item.dataset.date);
+        eventDate.setHours(0, 0, 0, 0);
+
+        if (eventDate < today) {
+          item.classList.add("past");
+        } else {
+          item.classList.add("upcoming");
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
