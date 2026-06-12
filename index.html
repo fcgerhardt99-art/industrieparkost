@@ -29,13 +29,7 @@
       justify-content: space-between;
       align-items: flex-start;
       padding: 46px 44px 44px;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,1) 0%,
-        rgba(0,0,0,0.98) 45%,
-        rgba(0,0,0,0.75) 75%,
-        transparent 100%
-      );
+      background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 45%, rgba(0,0,0,0.75) 75%, transparent 100%);
       font-size: 14px;
       font-weight: 300;
       text-transform: uppercase;
@@ -54,16 +48,11 @@
       display: inline-block;
       transform: scaleY(1.65);
       opacity: 0.95;
-      transition: opacity 0.2s ease;
     }
 
     .navbar a:hover {
-      opacity: 1;
       animation: hardGlitch 0.09s infinite;
-      text-shadow:
-        3px 0 #fff,
-        -3px 0 #777,
-        0 2px #222;
+      text-shadow: 3px 0 #fff, -3px 0 #777, 0 2px #222;
     }
 
     @keyframes hardGlitch {
@@ -90,6 +79,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       transform: translate(-50%, -50%);
       z-index: 1;
       pointer-events: none;
@@ -104,23 +94,27 @@
       pointer-events: none;
     }
 
-    .trail {
+    .sparkle {
       position: fixed;
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.22);
-      filter: blur(8px);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff2fd6;
+      box-shadow: 0 0 8px #ff2fd6, 0 0 18px #ff2fd6, 0 0 28px #ff8bea;
       pointer-events: none;
       z-index: 100;
-      transform: translate(-50%, -50%);
-      animation: trailFade 0.75s linear forwards;
-      mix-blend-mode: difference;
+      animation: sparkleFade 0.8s linear forwards;
     }
 
-    @keyframes trailFade {
-      from { opacity: 0.95; width: 20px; height: 20px; }
-      to { opacity: 0; width: 110px; height: 34px; }
+    @keyframes sparkleFade {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0) rotate(180deg);
+      }
     }
 
     section {
@@ -215,29 +209,29 @@
       font-weight: 300;
     }
 
+    .mobile-socials {
+      display: none;
+    }
+
     @media (max-width: 700px) {
       .navbar {
-        min-height: 155px;
-        padding: 28px 18px 38px;
-        flex-direction: column;
-        gap: 18px;
-        align-items: flex-start;
+        min-height: 105px;
+        padding: 34px 18px 38px;
+        display: block;
         font-size: 11px;
-        letter-spacing: 2.3px;
-        background: linear-gradient(
-          to bottom,
-          rgba(0,0,0,1) 0%,
-          rgba(0,0,0,0.98) 70%,
-          transparent 100%
-        );
+        letter-spacing: 2.2px;
+        background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 75%, transparent 100%);
       }
 
-      .nav-left,
-      .nav-right {
+      .nav-left {
         width: 100%;
         display: flex;
         justify-content: space-between;
         gap: 8px;
+      }
+
+      .nav-right {
+        display: none;
       }
 
       .navbar a {
@@ -245,12 +239,12 @@
       }
 
       .hero {
-        height: 72vh;
+        height: 100vh;
       }
 
       .hero-video {
-        object-fit: contain;
-        background: #000;
+        object-fit: cover;
+        object-position: center center;
       }
 
       section {
@@ -269,6 +263,14 @@
 
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .mobile-socials {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        margin-top: 28px;
+        flex-wrap: wrap;
       }
     }
   </style>
@@ -362,23 +364,37 @@
 
   <footer>
     © 2026 Industriepark Ost
+
+    <div class="mobile-socials">
+      <a href="https://www.instagram.com/industrieparkost/" target="_blank">Instagram</a>
+      <a href="https://open.spotify.com/artist/103iVpHufJ5xn1CC4t3Qtl" target="_blank">Spotify</a>
+      <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8" target="_blank">YouTube</a>
+    </div>
   </footer>
 
   <script>
-    let lastTrail = 0;
+    let lastSparkle = 0;
 
     document.addEventListener("mousemove", function(e) {
       const now = Date.now();
-      if (now - lastTrail < 28) return;
-      lastTrail = now;
+      if (now - lastSparkle < 18) return;
+      lastSparkle = now;
 
-      const trail = document.createElement("div");
-      trail.className = "trail";
-      trail.style.left = e.clientX + "px";
-      trail.style.top = e.clientY + "px";
-      document.body.appendChild(trail);
+      for (let i = 0; i < 3; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
 
-      setTimeout(() => trail.remove(), 750);
+        const offsetX = (Math.random() - 0.5) * 28;
+        const offsetY = (Math.random() - 0.5) * 28;
+
+        sparkle.style.left = e.clientX + offsetX + "px";
+        sparkle.style.top = e.clientY + offsetY + "px";
+        sparkle.style.width = Math.random() * 6 + 3 + "px";
+        sparkle.style.height = sparkle.style.width;
+
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 800);
+      }
     });
   </script>
 
