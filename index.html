@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Industriepark Ost</title>
 
   <style>
@@ -17,7 +17,7 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       background: #050505;
       color: #f2f2f2;
     }
@@ -31,26 +31,35 @@
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 10;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 40px;
+      padding: 26px 42px;
       background: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
-      font-size: 14px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 3px;
     }
 
     .nav-left,
     .nav-right {
       display: flex;
-      gap: 24px;
+      gap: 26px;
       align-items: center;
     }
 
+    .navbar a {
+      display: inline-block;
+      transform: scaleY(1.55);
+      transform-origin: center;
+      opacity: 0.9;
+    }
+
     .navbar a:hover {
-      opacity: 0.6;
+      opacity: 0.45;
     }
 
     .hero {
@@ -65,26 +74,29 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.18);
       pointer-events: none;
+      z-index: 2;
     }
 
     .scroll {
       position: absolute;
       bottom: 30px;
       left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      font-size: 12px;
+      transform: translateX(-50%) scaleY(1.5);
+      z-index: 5;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      opacity: 0.8;
+      letter-spacing: 3px;
+      opacity: 0.75;
+      font-weight: 300;
     }
 
     section {
@@ -94,10 +106,14 @@
     }
 
     h2 {
-      font-size: 32px;
-      margin-bottom: 32px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 34px;
+      font-weight: 200;
+      margin-bottom: 34px;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 6px;
+      transform: scaleY(1.35);
+      transform-origin: left center;
     }
 
     .dates {
@@ -112,6 +128,8 @@
       border-bottom: 1px solid #333;
       padding-bottom: 18px;
       font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 1px;
     }
 
     .embed {
@@ -136,10 +154,13 @@
       height: 100%;
     }
 
-    .about p {
+    .about p,
+    #kontakt p {
       font-size: 20px;
       line-height: 1.6;
       max-width: 760px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
     }
 
     footer {
@@ -147,18 +168,20 @@
       text-align: center;
       color: #aaa;
       border-top: 1px solid #222;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 300;
     }
 
     @media (max-width: 700px) {
       .navbar {
         padding: 18px 20px;
-        font-size: 12px;
+        font-size: 11px;
+        letter-spacing: 2px;
       }
 
-      .nav-left {
-        gap: 14px;
-      }
-
+      .nav-left,
       .nav-right {
         gap: 14px;
       }
@@ -170,6 +193,10 @@
 
       section {
         padding: 70px 22px;
+      }
+
+      h2 {
+        font-size: 28px;
       }
 
       .date {
@@ -198,10 +225,11 @@
   </nav>
 
   <header class="hero">
-    <video autoplay muted loop playsinline>
-      <source src="InduVideo.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline preload="auto">
       <source src="InduVideo.MOV" type="video/quicktime">
+      Dein Browser unterstützt dieses Video nicht.
     </video>
+
     <div class="scroll">Scroll</div>
   </header>
 
@@ -221,12 +249,11 @@
 
     <iframe
       class="embed"
-      style="border-radius:12px"
       src="https://open.spotify.com/embed/artist/103iVpHufJ5xn1CC4t3Qtl"
       width="100%"
       height="352"
       frameborder="0"
-      allowfullscreen=""
+      allowfullscreen
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy">
     </iframe>
@@ -256,7 +283,10 @@
 
   <section id="kontakt">
     <h2>Kontakt</h2>
-    <p>Booking / Anfragen: <a href="mailto:industrieparkost@gmail.com">industrieparkost@gmail.com</a></p>
+    <p>
+      Booking / Anfragen:
+      <a href="mailto:industrieparkost@gmail.com">industrieparkost@gmail.com</a>
+    </p>
   </section>
 
   <footer>
