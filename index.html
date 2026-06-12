@@ -20,21 +20,18 @@
     a { color: inherit; text-decoration: none; }
 
     .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
+      height: 110px;
+      background: #000;
       z-index: 50;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      padding: 46px 44px 44px;
-      background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 45%, rgba(0,0,0,0.75) 75%, transparent 100%);
+      align-items: center;
+      padding: 0 44px;
       font-size: 14px;
       font-weight: 300;
       text-transform: uppercase;
       letter-spacing: 4px;
-      min-height: 135px;
     }
 
     .nav-left,
@@ -66,55 +63,19 @@
 
     .hero {
       position: relative;
-      height: 100vh;
+      height: calc(100vh - 110px);
       width: 100%;
       overflow: hidden;
       background: #000;
     }
 
     .hero-video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center center;
-      transform: translate(-50%, -50%);
-      z-index: 1;
+      display: block;
       pointer-events: none;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.08);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .sparkle {
-      position: fixed;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #ff2fd6;
-      box-shadow: 0 0 8px #ff2fd6, 0 0 18px #ff2fd6, 0 0 28px #ff8bea;
-      pointer-events: none;
-      z-index: 100;
-      animation: sparkleFade 0.8s linear forwards;
-    }
-
-    @keyframes sparkleFade {
-      0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0) rotate(180deg);
-      }
     }
 
     section {
@@ -215,12 +176,12 @@
 
     @media (max-width: 700px) {
       .navbar {
-        min-height: 105px;
-        padding: 34px 18px 38px;
-        display: block;
+        height: 92px;
+        padding: 0 18px;
+        display: flex;
+        align-items: center;
         font-size: 11px;
         letter-spacing: 2.2px;
-        background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 75%, transparent 100%);
       }
 
       .nav-left {
@@ -239,7 +200,7 @@
       }
 
       .hero {
-        height: 100vh;
+        height: calc(100vh - 92px);
       }
 
       .hero-video {
@@ -371,32 +332,6 @@
       <a href="https://www.youtube.com/watch?v=HsxW8jKIYv8" target="_blank">YouTube</a>
     </div>
   </footer>
-
-  <script>
-    let lastSparkle = 0;
-
-    document.addEventListener("mousemove", function(e) {
-      const now = Date.now();
-      if (now - lastSparkle < 18) return;
-      lastSparkle = now;
-
-      for (let i = 0; i < 3; i++) {
-        const sparkle = document.createElement("div");
-        sparkle.className = "sparkle";
-
-        const offsetX = (Math.random() - 0.5) * 28;
-        const offsetY = (Math.random() - 0.5) * 28;
-
-        sparkle.style.left = e.clientX + offsetX + "px";
-        sparkle.style.top = e.clientY + offsetY + "px";
-        sparkle.style.width = Math.random() * 6 + 3 + "px";
-        sparkle.style.height = sparkle.style.width;
-
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 800);
-      }
-    });
-  </script>
 
 </body>
 </html>
