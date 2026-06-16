@@ -102,6 +102,14 @@
       pointer-events: none;
     }
 
+    .desktop-video {
+      display: block;
+    }
+
+    .mobile-video {
+      display: none;
+    }
+
     section {
       padding: 90px 40px;
       max-width: 1050px;
@@ -184,12 +192,12 @@
       height: 100%;
     }
 
- .embed {
-  margin-top: 28px;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-}
+    .embed {
+      margin-top: 28px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
 
     .gallery-grid {
       display: grid;
@@ -272,7 +280,12 @@
         height: calc(100vh - 118px);
       }
 
-      .hero-video {
+      .desktop-video {
+        display: none;
+      }
+
+      .mobile-video {
+        display: block;
         object-fit: cover;
         object-position: center center;
       }
@@ -333,8 +346,12 @@
   </nav>
 
   <header class="hero">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <video class="hero-video desktop-video" autoplay muted loop playsinline preload="auto">
       <source src="InduVideo.mp4" type="video/mp4">
+    </video>
+
+    <video class="hero-video mobile-video" autoplay muted loop playsinline preload="auto">
+      <source src="Indu4.mp4" type="video/mp4">
     </video>
   </header>
 
