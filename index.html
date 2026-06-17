@@ -92,10 +92,8 @@
       object-position: center center;
       display: block;
       pointer-events: none;
+      background: #000;
     }
-
-    .desktop-video { display: block; }
-    .mobile-video { display: none; }
 
     section {
       padding: 90px 40px;
@@ -252,14 +250,6 @@
         height: calc(100vh - 118px);
       }
 
-      .desktop-video { display: none; }
-
-      .mobile-video {
-        display: block;
-        object-fit: cover;
-        object-position: center center;
-      }
-
       section {
         padding: 70px 22px;
         scroll-margin-top: 140px;
@@ -313,28 +303,15 @@
 
   <header class="hero">
     <video
-      class="hero-video desktop-video"
+      id="heroVideo"
+      class="hero-video"
       autoplay
       muted
       loop
       playsinline
       webkit-playsinline
-      preload="auto"
-    >
-      <source src="InduVideo.mp4" type="video/mp4">
-    </video>
-
-    <video
-      class="hero-video mobile-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      webkit-playsinline
-      preload="auto"
-    >
-      <source src="InduMobile.mp4" type="video/mp4">
-    </video>
+      preload="metadata"
+    ></video>
   </header>
 
   <section id="live">
@@ -457,18 +434,57 @@
         }
       });
 
-      const videos = document.querySelectorAll("video");
+      const video = document.getElementById("heroVideo");
 
-      videos.forEach(video => {
+      const desktopVideo = "InduVideo.mp4";
+      const mobileVideo = "InduMobile.mp4";
+
+      function chooseVideo() {
+        const isPortrait = window.innerWidth < window.innerHeight;
+        return isPortrait ? mobileVideo : desktopVideo;
+      }
+
+      function loadCorrectVideo() {
+        const selectedVideo = chooseVideo();
+
+        if (video.dataset.currentSrc === selectedVideo) return;
+
+        video.pause();
+        video.innerHTML = "";
+
+        const source = document.createElement("source");
+        source.src = selectedVideo;
+        source.type = "video/mp4";
+
+        video.appendChild(source);
+        video.dataset.currentSrc = selectedVideo;
+
         video.muted = true;
         video.setAttribute("muted", "");
         video.setAttribute("playsinline", "");
         video.setAttribute("webkit-playsinline", "");
+        video.preload = "metadata";
+
+        video.load();
 
         const playPromise = video.play();
 
         if (playPromise !== undefined) {
           playPromise.catch(() => {});
+        }
+      }
+
+      loadCorrectVideo();
+
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(loadCorrectVideo, 250);
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          video.play().catch(() => {});
         }
       });
     });
