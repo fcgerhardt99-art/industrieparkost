@@ -26,14 +26,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    .stretched {
-      display: inline-block;
-      transform: scaleY(1.28);
-      transform-origin: left center;
-      font-weight: 300;
-      letter-spacing: 1.5px;
-    }
-
     .navbar {
       position: fixed;
       top: 0;
@@ -102,13 +94,8 @@
       pointer-events: none;
     }
 
-    .desktop-video {
-      display: block;
-    }
-
-    .mobile-video {
-      display: none;
-    }
+    .desktop-video { display: block; }
+    .mobile-video { display: none; }
 
     section {
       padding: 90px 40px;
@@ -155,25 +142,12 @@
       transform-origin: left center;
     }
 
-    .date:hover {
-      transform: translateX(6px);
-    }
+    .date:hover { transform: translateX(6px); }
+    .date.past { opacity: 0.28; }
+    .date.upcoming { opacity: 1; }
 
-    .date.past {
-      opacity: 0.28;
-    }
-
-    .date.upcoming {
-      opacity: 1;
-    }
-
-    .date-location {
-      color: #cfcfcf;
-    }
-
-    .date-day {
-      text-align: right;
-    }
+    .date-location { color: #cfcfcf; }
+    .date-day { text-align: right; }
 
     .video-wrapper {
       position: relative;
@@ -266,9 +240,7 @@
         gap: 28px;
       }
 
-      .navbar a {
-        transform: scaleY(1.35);
-      }
+      .navbar a { transform: scaleY(1.35); }
 
       .nav-right i {
         font-size: 21px;
@@ -280,9 +252,7 @@
         height: calc(100vh - 118px);
       }
 
-      .desktop-video {
-        display: none;
-      }
+      .desktop-video { display: none; }
 
       .mobile-video {
         display: block;
@@ -306,13 +276,9 @@
         font-size: 16px;
       }
 
-      .date-day {
-        text-align: left;
-      }
+      .date-day { text-align: left; }
 
-      .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
 
       .about p,
       #kontakt p {
@@ -346,12 +312,28 @@
   </nav>
 
   <header class="hero">
-    <video class="hero-video desktop-video" autoplay muted loop playsinline preload="auto">
+    <video
+      class="hero-video desktop-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+    >
       <source src="InduVideo.mp4" type="video/mp4">
     </video>
 
-    <video class="hero-video mobile-video" autoplay muted loop playsinline preload="auto">
-      <source src="Indu4.mp4" type="video/mp4">
+    <video
+      class="hero-video mobile-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+    >
+      <source src="InduMobile.mp4" type="video/mp4">
     </video>
   </header>
 
@@ -359,7 +341,6 @@
     <h2>Live-Konzerte</h2>
 
     <div class="dates">
-
       <div class="date" data-date="2026-05-16">
         <a href="https://stein-festival.de/programm/" target="_blank">
           <span>EU Stone Festival</span>
@@ -391,7 +372,6 @@
           <span class="date-day">15.08.2026</span>
         </a>
       </div>
-
     </div>
   </section>
 
@@ -474,6 +454,21 @@
           item.classList.add("past");
         } else {
           item.classList.add("upcoming");
+        }
+      });
+
+      const videos = document.querySelectorAll("video");
+
+      videos.forEach(video => {
+        video.muted = true;
+        video.setAttribute("muted", "");
+        video.setAttribute("playsinline", "");
+        video.setAttribute("webkit-playsinline", "");
+
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
         }
       });
     });
