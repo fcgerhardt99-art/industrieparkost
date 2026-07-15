@@ -147,15 +147,23 @@
     .date-location { color: #cfcfcf; }
     .date-day { text-align: right; }
 
+    .video-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      margin-bottom: 34px;
       border-radius: 12px;
       background: #111;
     }
+
+    .video-row .video-wrapper { margin-bottom: 0; }
 
     .video-wrapper iframe {
       position: absolute;
@@ -268,6 +276,8 @@
 
       .date-day { text-align: left; }
 
+      .video-row { grid-template-columns: 1fr; }
+
       .gallery-grid { grid-template-columns: 1fr 1fr; }
 
       .about p,
@@ -355,14 +365,26 @@
   <section id="musik">
     <h2>Musik & Videos</h2>
 
-    <div class="video-wrapper">
-      <iframe
-        src="https://www.youtube.com/embed/HsxW8jKIYv8"
-        title="Industriepark Ost Video"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+    <div class="video-row">
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/HsxW8jKIYv8"
+          title="Industriepark Ost Video 1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/b1PLRlc-nL0?start=29"
+          title="Industriepark Ost Video 2"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
 
     <iframe
